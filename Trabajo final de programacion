@@ -1,0 +1,84 @@
+Dimension usuarios[10], contrasenias[10]
+Definir total Como Entero
+total <- 0
+
+Funcion CrearUsuario()
+    Global usuarios, contrasenias, total
+    Definir indice Como Entero
+
+    Si total < 10 Entonces
+        indice <- total + 1
+        Escribir "Digite el nombre del nuevo usuario:"
+        Leer usuarios[indice]
+        Escribir "Cree una contraseña:"
+        Leer contrasenias[indice]
+        total <- total + 1
+        Escribir "Usuario registrado exitosamente."
+    SiNo
+        Escribir "No se pueden registrar más usuarios."
+    FinSi
+FinFuncion
+
+
+Funcion EvaluarContrasenia()
+    Definir pass, letra Como Cadena
+    Definir largo, hayMayus, hayNum, i Como Entero
+    hayMayus <- 0
+    hayNum <- 0
+
+    Escribir "Escriba la contraseña que desea analizar:"
+    Leer pass
+    largo <- Longitud(pass)
+
+    Para i <- 1 Hasta largo Con Paso 1 Hacer
+        letra <- SubCadena(pass, i, i)
+        Si letra >= "A" Y letra <= "Z" Entonces
+            hayMayus <- 1
+        FinSi
+        Si letra >= "0" Y letra <= "9" Entonces
+            hayNum <- 1
+        FinSi
+    FinPara
+
+    Si largo >= 8 Y hayMayus = 1 Y hayNum = 1 Entonces
+        Escribir "Contraseña fuerte y segura."
+    SiNo
+        Escribir "Contraseña débil. Usa más caracteres, números y mayúsculas."
+    FinSi
+FinFuncion
+
+
+Algoritmo SistemaUsuarios
+    Definir opcion Como Entero
+
+    Repetir
+        Escribir ""
+        Escribir "========= MENÚ DE SEGURIDAD ========="
+        Escribir "1. Evaluar fortaleza de contraseña"
+        Escribir "2. Registrar nuevo usuario"
+        Escribir "3. Mostrar usuarios registrados"
+        Escribir "4. Salir del sistema"
+        Escribir "Seleccione una opción:"
+        Leer opcion
+
+        Segun opcion Hacer
+            1:
+                EvaluarContrasenia()
+            2:
+                CrearUsuario()
+            3:
+                Si total > 0 Entonces
+                    Escribir "Usuarios registrados actualmente:"
+                    Para i <- 1 Hasta total Con Paso 1 Hacer
+                        Escribir i, ". ", usuarios[i]
+                    FinPara
+                SiNo
+                    Escribir "No hay usuarios registrados aún."
+                FinSi
+            4:
+                Escribir "Programa finalizado. Gracias por usar el sistema."
+            De Otro Modo:
+                Escribir "Opción no válida. Intente de nuevo."
+        FinSegun
+    Hasta Que opcion = 4
+FinAlgoritmo
